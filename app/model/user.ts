@@ -1,7 +1,7 @@
 // app/model/user.ts
 import { Application } from 'egg'
 
-export default (app: Application) => {
+module.exports = (app: Application) => {
     const { STRING, INTEGER, DATE, NOW } = app.Sequelize;
     const User = app.model.define('1224_users', {
         id: { type: INTEGER, primaryKey: true, autoIncrement: true },

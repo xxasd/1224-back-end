@@ -7,8 +7,7 @@ import { Service } from 'egg';
  */
 
 interface RegisterParams {
-    uuid: string,
-    nickname: string,
+    uuid?: string,
     email: string,
     password: string
 }
@@ -21,17 +20,46 @@ interface RegisterParams {
 export default class UserService extends Service {
 
   /**
-   * @interface register
-   * @param nickname - 昵称
+   * 用户注册
+   * @interface RegisterParams
    * @param email - 邮箱
    * @param password - 密码
    */
   public async register(user: RegisterParams) {
     const { ctx } = this;
-
     // 添加uuid
-    user.uuid = uuid.v4();
+    user.uuid = uuid.v1();
 
+    // 是否已经注册
+    const queryResult = await this.hasRegister(user.email);
+    if(queryResult) {
+      ctx.returnBody({
+        status: 200,
+        message: '邮箱已被注册'
+      })
+      return
+    }
+    ctx.returnBody({
+      status: 200,
+      message: '可以注册'
+    })
+  }
+
+  /**
+   * 根据邮箱查询该用户是否存在
+   * @param email - 邮箱
+   */
+  private async hasRegister(email: string) {
     
+    // 根据邮箱查询该用户是否存在
+    const user = await this.ctx.model.User.findOne({
+      where: { email: email }
+    });
+
+    if(user && user.dataValues.uuid) {
+      return true;
+    }
+
+    return false
   }
 }
