@@ -21,13 +21,20 @@ export default (appInfo: EggAppInfo) => {
     }
   }
 
-  config.security= {
-    csrf: {
-      enable: false,
-      ignoreJSON: true
-    },
-      domainWhiteList: ['http://localhost:7001','http://127.0.0.1:7001']
-  }
+  // config.security= {
+  //   csrf: {
+  //     enable: false,
+  //     ignoreJSON: true
+  //   },
+  //   domainWhiteList: ['http://localhost:7000','http://127.0.0.1:7000']
+  // }
+  // config.security = {
+  //   csrf: false
+  // }
+
+  config.cors = {
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
+  };
 
   // add your egg config in here
   config.middleware = [];

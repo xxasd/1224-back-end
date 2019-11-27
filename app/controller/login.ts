@@ -1,11 +1,13 @@
 import { Controller } from 'egg'
 
-class UserController extends Controller {
+export default class UserController extends Controller {
 
     /**
-     * 注册 register
+     * 
      * @return {Promise<*>}
      */
+
+    //  注册
     public async register() {
         const { ctx } = this;
         const { email, password } = ctx.request.body
@@ -19,8 +21,8 @@ class UserController extends Controller {
 
     // 参数异常函数
     private __errNotice () {
-        const {ctx} = this;
-        const {mobile, password, code, username, email} = ctx.request.body
+        const { ctx } = this;
+        const { mobile, password, code, username, email } = ctx.request.body
         // 参数校验
         let message;
         if (!mobile || !email) {
@@ -42,5 +44,3 @@ class UserController extends Controller {
     }
 
 }
-
-module.exports = UserController;
