@@ -21,16 +21,16 @@ export default (appInfo: EggAppInfo) => {
     }
   }
 
-  // config.security= {
-  //   csrf: {
-  //     enable: false,
-  //     ignoreJSON: true
-  //   },
-  //   domainWhiteList: ['http://localhost:7000','http://127.0.0.1:7000']
-  // }
-  // config.security = {
-  //   csrf: false
-  // }
+  config.security= {
+    csrf: {
+      enable: false,
+      ignoreJSON: true
+    },
+    domainWhiteList: ['http://localhost:7001','http://127.0.0.1:7001']
+  }
+  config.security = {
+    csrf: false
+  }
 
   config.cors = {
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
@@ -43,7 +43,7 @@ export default (appInfo: EggAppInfo) => {
     dialect: 'mysql',
     host: 'localhost',
     port: 3306,
-    password: 'newrootpassword',
+    password: '^VySteTjF226&hPk',
     database: '1224',
     timezone: '+08:00',
   }

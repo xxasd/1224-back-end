@@ -12,8 +12,8 @@ module.exports = (app: Application) => {
         avatar: { type: STRING(255) },
         phone: { type: STRING(20) },
         status: { type: INTEGER, defaultValue: 1 },
-        created_at: {type: DATE, defaultValue: NOW},
-        updated_at: {type: DATE, defaultValue: NOW}
+        created_at: { type: DATE, defaultValue: NOW },
+        updated_at: { type: DATE, defaultValue: NOW }
     })
 
     return User;

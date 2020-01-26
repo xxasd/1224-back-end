@@ -7,9 +7,9 @@ import { Service } from 'egg';
  */
 
 interface RegisterParams {
-    uuid?: string,
-    email: string,
-    password: string
+  uuid?: string,
+  email: string,
+  password: string
 }
 
 // interface LoginParams {
@@ -32,17 +32,11 @@ export default class UserService extends Service {
 
     // 是否已经注册
     const queryResult = await this.hasRegister(user.email);
-    if(queryResult) {
-      ctx.returnBody({
-        status: 200,
-        message: '邮箱已被注册'
-      })
+    if (queryResult) {
+      ctx.returnBody(200, '邮箱已被注册');
       return
     }
-    ctx.returnBody({
-      status: 200,
-      message: '可以注册'
-    })
+    ctx.returnBody(200, '可以注册');
   }
 
   /**
@@ -50,13 +44,13 @@ export default class UserService extends Service {
    * @param email - 邮箱
    */
   private async hasRegister(email: string) {
-    
+
     // 根据邮箱查询该用户是否存在
     const user = await this.ctx.model.User.findOne({
       where: { email: email }
     });
 
-    if(user && user.dataValues.uuid) {
+    if (user && user.dataValues.uuid) {
       return true;
     }
 

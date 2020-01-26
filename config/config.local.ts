@@ -7,7 +7,7 @@ export default () => {
     dialect: 'mysql',
     host: 'localhost',
     port: 3306,
-    password: 'newrootpassword',
+    password: '^VySteTjF226&hPk',
     database: '1224',
     timezone: '+08:00',
   }
