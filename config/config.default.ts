@@ -7,8 +7,10 @@ export default (appInfo: EggAppInfo) => {
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1572526174159_7081';
 
+  // add your egg config in here
   config.middleware = [];
 
+  // add RESTful API base path
   config.basePath = '/api/v1'
 
   // 关闭安全威胁csrf的防范
@@ -21,32 +23,35 @@ export default (appInfo: EggAppInfo) => {
     }
   }
 
+  // 配置跨域
   config.security= {
     csrf: {
       enable: false,
       ignoreJSON: true
     },
-    domainWhiteList: ['http://localhost:7001','http://127.0.0.1:7001']
-  }
-  config.security = {
-    csrf: false
+    domainWhiteList: ['http://localhost:7000','http://127.0.0.1:7000']
   }
 
+  // 配置跨域
   config.cors = {
+    origin: '*',
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
   };
 
-  // add your egg config in here
-  config.middleware = [];
+  // token凭证
+  config.jwtSecret = 'satomi';
 
-  config.sequelize = {
-    dialect: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    password: '^VySteTjF226&hPk',
-    database: '1224',
-    timezone: '+08:00',
-  }
+  // authorization's white list
+  config.authWhiteList = ['/api/v1/login', '/api/v1/login/register'];
+
+  // cookie name config
+  config.auth_cookie_name = 'token';
+
+  // config passport 
+  config.passportLocal = {
+    usernameField: 'username',
+    passwordField: 'password',
+  };
 
   // router plus add namespace feature
   config.routerPlus = {
