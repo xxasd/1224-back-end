@@ -1,6 +1,4 @@
-/**
- * 扩展方法
- */
+// 扩展方法
 
 const jwt = require("jsonwebtoken");
 
@@ -19,9 +17,9 @@ module.exports = {
     returnBody (status, message, data = {}) {
         this.status = status;
         this.body = {
+            status,
             data,
-            message: message,
-            success: true
+            message: message
         }
     },
     
