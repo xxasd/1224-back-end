@@ -64,9 +64,18 @@ export default (appInfo: EggAppInfo) => {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
   };
 
+  // add view config
+  const view = {
+    defaultViewEngine: 'nunjucks',
+    mapping: {
+      '.tpl': 'nunjucks'
+    }
+  }
+
   // the return config will combines to EggAppConfig
   return {
     ...config,
     ...bizConfig,
+    view
   };
 };

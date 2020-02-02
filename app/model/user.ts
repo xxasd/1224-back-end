@@ -8,7 +8,7 @@ module.exports = (app: Application) => {
         uuid: { type: STRING(255) },
         email: { type: STRING(255), allowNull: false },
         password: { type: STRING(255), allowNull: false },
-        nickname: { type: STRING(255), allowNull: false },
+        nickname: { type: STRING(255) },
         avatar: { type: STRING(255) },
         phone: { type: STRING(20) },
         status: { type: INTEGER, defaultValue: 1 },

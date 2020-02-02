@@ -8,14 +8,10 @@ import { Service } from 'egg';
 
 interface RegisterParams {
   uuid?: string,
+  nickname?: string,
   email: string,
   password: string
 }
-
-// interface LoginParams {
-//     email: string,
-//     password: string
-// }
 
 export default class UserService extends Service {
 
@@ -29,14 +25,25 @@ export default class UserService extends Service {
     const { ctx } = this;
     // 添加uuid
     user.uuid = uuid.v1();
+    // 用户昵称默认为用户邮箱
+    user.nickname = user.email;
 
     // 是否已经注册
     const queryResult = await this.hasRegister(user.email);
     if (queryResult) {
-      ctx.returnBody(200, '邮箱已被注册');
+      // 已被注册
+      ctx.returnBody(400, '邮箱已被注册');
       return
     }
-    ctx.returnBody(200, '可以注册');
+
+    // 可以注册，注册成功时返回给前端
+    const userInfo = await ctx.model.User.create(user);
+
+    ctx.status = 200;
+    ctx.returnBody(200, '注册成功', {
+      userInfo
+    });
+    return userInfo;
   }
 
   /**
