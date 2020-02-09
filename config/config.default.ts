@@ -29,7 +29,7 @@ export default (appInfo: EggAppInfo) => {
       enable: false,
       ignoreJSON: true
     },
-    domainWhiteList: ['http://localhost:7000','http://127.0.0.1:7000']
+    domainWhiteList: ['http://127.0.0.1:7000']
   }
 
   // 配置跨域
@@ -39,7 +39,7 @@ export default (appInfo: EggAppInfo) => {
   };
 
   // token凭证
-  config.jwtSecret = 'satomi';
+  config.jwtSecret = 'sam';
 
   // authorization's white list
   config.authWhiteList = ['/api/v1/login', '/api/v1/login/register'];

@@ -10,8 +10,14 @@ export default (app: Application) => {
   console.log(login.register);
   apiV1Router.get('/', controller.home.index);
 
-  // 用户
+  /**
+   * 用户login
+   * 注册/登录/推出登录
+   */
+  // 注册
   apiV1Router.post('/login/register', login.register);
+  // 登录
+  apiV1Router.post('/login', login.loginIn);  
 
   // 测试post请求
   apiV1Router.post("/test/posting", test.posting);

@@ -1,14 +1,22 @@
 import * as uuid from 'uuid'
 import * as md5 from 'md5'
+import * as jwt from 'jsonwebtoken'
 import { Service } from 'egg'
 
 /**
  * User Service
  */
 
+// 注册接口
 interface RegisterParams {
   uuid?: string,
   nickname?: string,
+  email: string,
+  password: string
+}
+
+// 登录接口
+interface LoginParams {
   email: string,
   password: string
 }
@@ -29,9 +37,9 @@ export default class UserService extends Service {
     user.nickname = user.email;
     // 用户密码md5加密
     user.password = md5(user.password);
-    
+
     // 是否已经注册
-    const queryResult = await this.hasRegister(user.email);
+    const queryResult = await this.hasUser(user.email);
     if (queryResult) {
       // 已被注册
       ctx.returnBody(400, '邮箱已被注册');
@@ -49,10 +57,44 @@ export default class UserService extends Service {
   }
 
   /**
+   * 用户登录
+   * @interface LoginParams
+   * @param email - 邮箱
+   * @param password - 密码
+   */
+  public async login(user: LoginParams) {
+    const { app } = this;
+
+    const existUser = await this.hasUser(user.email);
+
+    // 用户不存在
+    if (!existUser) {
+      return false
+    }
+
+    // 获取登录密码
+    user.password = md5(user.password);
+    const existUserPassword = existUser.password;
+
+    // 检查密码是否一致
+    const passwordEqual = existUserPassword === user.password;
+
+    if (!passwordEqual) {
+      return false
+    }
+
+    // 邮箱密码验证成功
+    const token = jwt.sign({ uuid: existUser.uuid }, app.config.jwtSecret, { expiresIn: '7d' });
+
+    return token;
+
+  }
+
+  /**
    * 根据邮箱查询该用户是否存在
    * @param email - 邮箱
    */
-  private async hasRegister(email: string) {
+  private async hasUser(email: string) {
 
     // 根据邮箱查询该用户是否存在
     const user = await this.ctx.model.User.findOne({
@@ -60,7 +102,7 @@ export default class UserService extends Service {
     });
 
     if (user && user.dataValues.uuid) {
-      return true;
+      return user;
     }
 
     return false
