@@ -29,16 +29,16 @@ export default class UserController extends Controller {
 
         // 设置cookie
         if (token) {
-            // id存入cookie，用于验证国企
+            // id存入cookie，用于验证过期
             const options = {
                 path: '/',
-                maxAge: 1000 * 60 * 60 * 24 * 7,
+                maxAge: 1000 * 60 * 60 * 24 * 30,
                 httpOnly: false,
                 domain: app.config.security.defaultMiddleware[0]
             };
-            // cookie 有效期7天
+            // cookie 有效期30天
             ctx.cookies.set(this.config.auth_cookie_name, token, options)
-            ctx.set("Authorization", `Bearer ${token}`)
+            ctx.set("authorization", token)
             ctx.returnBody(200, '登录成功')
         } else {
             ctx.throw(400, '用户名或密码错误')

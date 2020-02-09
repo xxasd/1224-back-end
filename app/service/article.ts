@@ -20,7 +20,7 @@ export default class ArticleService extends Service {
      * @param logo - 封面（网络地址）
      * @param content - 内容
      */
-    public async create(article: ArticleCreateParams) {
+    public async articleCreat(article: ArticleCreateParams) {
         const { ctx } = this;
         
         const articleInfo = await ctx.model.Article.create(article);

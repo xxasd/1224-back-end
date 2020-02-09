@@ -8,7 +8,7 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1572526174159_7081';
 
   // add your egg config in here
-  config.middleware = [];
+  config.middleware = ['jwt'];
 
   // add RESTful API base path
   config.basePath = '/api/v1'

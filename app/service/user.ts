@@ -84,7 +84,7 @@ export default class UserService extends Service {
     }
 
     // 邮箱密码验证成功
-    const token = jwt.sign({ uuid: existUser.uuid }, app.config.jwtSecret, { expiresIn: '7d' });
+    const token = jwt.sign({ uuid: existUser.uuid }, app.config.jwtSecret, { expiresIn: '30d' });
 
     return token;
 
