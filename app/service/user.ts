@@ -1,6 +1,6 @@
 import * as uuid from 'uuid'
-
-import { Service } from 'egg';
+import * as md5 from 'md5'
+import { Service } from 'egg'
 
 /**
  * User Service
@@ -23,11 +23,13 @@ export default class UserService extends Service {
    */
   public async register(user: RegisterParams) {
     const { ctx } = this;
-    // 添加uuid
+    // 用户添加uuid
     user.uuid = uuid.v1();
     // 用户昵称默认为用户邮箱
     user.nickname = user.email;
-
+    // 用户密码md5加密
+    user.password = md5(user.password);
+    
     // 是否已经注册
     const queryResult = await this.hasRegister(user.email);
     if (queryResult) {
