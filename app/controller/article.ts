@@ -24,6 +24,15 @@ export default class ArticleController extends Controller {
 
         const article = await ctx.service.article.articleCreat(newArticle)
 
-        ctx.returnBody(200, "发布成功", article);
+        const articleReturn = {
+            id: article.id,
+            title,
+            logo,
+            content,
+            updatedAt: article.update_at,
+            createdAt: article.create_at,
+        }
+
+        ctx.returnBody(200, "发布成功", articleReturn);
     }
 }

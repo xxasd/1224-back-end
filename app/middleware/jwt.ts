@@ -8,7 +8,12 @@ module.exports = (option, app) => {
         const token = ctx.headers.authorization;
         if (token) {
             try {
-                ctx.jwt.verify(token, app.config.jwtSecret)
+                const user = ctx.jwt.verify(token, app.config.jwtSecret);
+                if (!user) {
+                    ctx.returnBody(401, "登录时间过期")
+                }
+
+                ctx.user = user;
             } catch (error) {
                 // console.log(err)
                 ctx.returnBody(401, "登录时间过期", error)

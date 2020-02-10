@@ -24,7 +24,7 @@ export default (app: Application) => {
    * 新增/编辑/删除
    */
   // 新增
-  apiV1Router.post('article/create', article.articleCreat);
+  apiV1Router.post('/article/create', article.articleCreat);
 
   // 测试post请求
   apiV1Router.post("/test/posting", test.posting);
