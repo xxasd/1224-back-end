@@ -22,7 +22,7 @@ export default class ArticleController extends Controller {
             uuid
         }
 
-        const article = await ctx.service.article.articleCreat(newArticle)
+        const article = await ctx.service.article.articleCreate(newArticle)
 
         const articleReturn = {
             id: article.id,
