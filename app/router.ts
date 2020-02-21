@@ -17,7 +17,7 @@ export default (app: Application) => {
   // 注册
   apiV1Router.post('/login/register', login.register);
   // 登录
-  apiV1Router.post('/login', login.loginIn);
+  apiV1Router.post('/login/login', login.loginIn);
 
   /**
    * 文章article
