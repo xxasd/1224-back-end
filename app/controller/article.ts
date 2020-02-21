@@ -33,6 +33,18 @@ export default class ArticleController extends Controller {
             createdAt: article.create_at,
         }
 
-        ctx.returnBody(200, "发布成功", articleReturn);
+        ctx.returnBody(200, "success", articleReturn);
+    }
+
+    /**
+     * 文章列表
+     * @return {Promise<*>}
+     */
+    public async articleList() {
+        const { ctx } = this;
+
+        const articleList = await ctx.service.article.articleList();
+
+        ctx.returnBody(200, "success" ,articleList)
     }
 }

@@ -19,6 +19,7 @@ export default class ArticleService extends Service {
      * @param title - 标题
      * @param logo - 封面（网络地址）
      * @param content - 内容
+     * @returns {Promise<*>}
      */
     public async articleCreate(article: ArticleCreateParams) {
         const { ctx } = this;
@@ -31,6 +32,18 @@ export default class ArticleService extends Service {
         })
 
         return articleInfo;
+    }
+
+    /**
+     * 文章列表
+     * @returns {Promise<*>}
+     */
+    public async articleList() {
+        const { ctx } = this;
+
+        const articleList = await ctx.model.Article.findAll({})
+
+        return articleList
     }
 
 }
