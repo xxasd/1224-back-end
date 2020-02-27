@@ -13,7 +13,7 @@ export default class UserController extends Controller {
         const { email, password } = ctx.request.body
 
         // error
-        if(!this.__errNotice) return
+        if (!this.__errNotice) return
 
         // 注册成功返回体
         await ctx.service.user.register({ email, password });
@@ -25,7 +25,7 @@ export default class UserController extends Controller {
         const { email, password } = ctx.request.body;
 
         // 登录获取token
-        const token = await ctx.service.user.login({email, password});
+        const token = await ctx.service.user.login({ email, password });
 
         // 设置cookie
         if (token) {
@@ -39,7 +39,7 @@ export default class UserController extends Controller {
             // cookie 有效期30天
             ctx.cookies.set(this.config.auth_cookie_name, token, options)
             ctx.set("authorization", token)
-            ctx.returnBody(200, '登录成功')
+            ctx.returnBody(200, '登录成功', { token })
         } else {
             ctx.throw(400, '用户名或密码错误')
         }
@@ -47,7 +47,7 @@ export default class UserController extends Controller {
     }
 
     // 参数异常函数
-    private __errNotice () {
+    private __errNotice() {
         const { ctx } = this;
         const { mobile, password, code, username, email } = ctx.request.body
         // 参数校验

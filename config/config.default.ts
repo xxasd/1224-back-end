@@ -42,7 +42,7 @@ export default (appInfo: EggAppInfo) => {
   config.jwtSecret = 'sam';
 
   // authorization's white list
-  config.authWhiteList = ['/api/v1/login/login', '/api/v1/login/register', '/api/v1/article/list'];
+  config.authWhiteList = ['/api/v1/login/login', '/api/v1/login/register'];
 
   // cookie name config
   config.auth_cookie_name = 'token';

@@ -33,7 +33,7 @@ export default class ArticleController extends Controller {
             createdAt: article.create_at,
         }
 
-        ctx.returnBody(200, "success", articleReturn);
+        ctx.returnBody(200, "success", articleReturn.id);
     }
 
     /**
