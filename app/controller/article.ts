@@ -42,9 +42,19 @@ export default class ArticleController extends Controller {
      */
     public async articleList() {
         const { ctx } = this;
+        let articleList = await ctx.service.article.articleList();
 
-        const articleList = await ctx.service.article.articleList();
+        let arr: Array<Object> = []
+        for (let item of articleList) {
+            const userInfo = await ctx.service.user.getUserInfoByUuid(item.uuid);
+                const obj = {
+                userInfo,
+                article: item
+            }
 
-        ctx.returnBody(200, "success" ,articleList)
+            arr.push(obj)
+        }
+        ctx.returnBody(200, "success" , arr)
+        
     }
 }

@@ -41,8 +41,13 @@ export default class ArticleService extends Service {
     public async articleList() {
         const { ctx } = this;
 
-        const articleList = await ctx.model.Article.findAll({})
-
+        let articleList = await ctx.model.Article.findAll({
+            attributes: ['title', 'uuid', 'logo', 'likes', 'reading', 'created_at', 'updated_at'],
+            where: {
+                status: 1
+            },
+        })
+        
         return articleList
     }
 

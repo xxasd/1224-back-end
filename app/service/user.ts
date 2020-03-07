@@ -107,4 +107,14 @@ export default class UserService extends Service {
 
     return false
   }
+
+  public async getUserInfoByUuid(uuid: string) {
+    // 根据邮箱查询该用户是否存在
+    const user = await this.ctx.model.User.findOne({
+      attributes: ['nickname', 'avatar'],
+      where: { uuid: uuid }
+    });
+
+    return user
+  }
 }
